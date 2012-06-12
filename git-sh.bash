@@ -160,6 +160,14 @@ for cfg in "${_git_cmd_cfg[@]}" ; do
 	done
 done
 
+# change args of expr by its version
+if [ $(expr --version) = '--version' ] ; then
+	# seems Busybox
+	expr_com='expr'
+else
+	expr_com='expr --'
+fi
+
 # Create aliases for everything defined in the gitconfig [alias] section.
 _git_import_aliases () {
 	eval "$(
@@ -167,7 +175,7 @@ _git_import_aliases () {
 		sed 's/^alias\.//'                  |
 		while read key command
 		do
-			if expr -- "$command" : '!' >/dev/null
+			if $expr_com "$command" : '!' >/dev/null
 			then echo "alias $key='git $key'"
 			else echo "gitalias $key=\"git $command\""
 			fi
