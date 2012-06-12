@@ -30,8 +30,8 @@
 
 # we expect to be sourced into an interactive shell. when executed as a
 # command, kick off a new shell and source us.
-[ "$0" = 'bash' ] ||
-exec /usr/bin/env bash --rcfile "$0" "$@"
+[ $(basename $0) = 'bash' ] ||
+	exec $(which bash) --rcfile "$0" "$@"
 
 # source the user's .bashrc file
 [ -r ~/.bashrc ] && {
