@@ -161,7 +161,7 @@ for cfg in "${_git_cmd_cfg[@]}" ; do
 done
 
 # change args of expr by its version
-if [ $(expr --version) = '--version' ] ; then
+if [ "$(expr --version)" = '--version' ] ; then
 	# seems Busybox
 	expr_com='expr'
 else
